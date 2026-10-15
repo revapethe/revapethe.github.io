@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Reva Pethe — Data Analyst &amp; Data Engineer</title>
+<meta content="Portfolio of Reva Pethe — data analyst and data engineer. SQL, Python, PySpark, AWS, Databricks, Power BI." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0C1320; --bg-2:#111B2B; --panel:#162234;
+    --line:#26344B; --line-2:#1D2A3E;
+    --text:#E6ECF5; --muted:#8DA0BC; --body:#C3CEDE;
+    --amber:#FFB454; --teal:#3DD6B0;
+    --pad:clamp(20px,5vw,48px); --maxw:1140px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Grotesk","Helvetica Neue",Arial,sans-serif;line-height:1.55;font-size:16px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  a{color:var(--amber);text-decoration:none}
+  a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+  /* role-variant visibility */
+  body.mode-da .v-de{display:none}
+  body.mode-de .v-da{display:none}
+
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:40;background:rgba(12,19,32,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line-2)}
+  .nav .wrap{display:flex;align-items:center;gap:16px;height:62px}
+  .brand{font-weight:700;font-size:16.5px;letter-spacing:-.01em;color:var(--text)}
+  .brand:hover{text-decoration:none}
+  .brand i{font-style:normal;color:var(--amber)}
+  .links{display:flex;gap:26px;margin-left:auto;font-size:14.5px}
+  .links a{color:var(--muted);padding:4px 0;border-bottom:2px solid transparent}
+  .links a:hover{color:var(--text);text-decoration:none}
+  .links a.on{color:var(--text);border-bottom-color:var(--amber)}
+  .resume{font-size:14px;font-weight:500;color:var(--bg);background:var(--amber);padding:8px 15px;border-radius:4px}
+  .resume:hover{text-decoration:none;filter:brightness(1.08)}
+  .burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--text);border-radius:4px;padding:7px 11px;font-size:15px;cursor:pointer}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(44px,7vw,84px) 0 clamp(40px,6vw,68px);border-bottom:1px solid var(--line-2)}
+  .hero h1,.hero .role{max-width:20ch}
+  .avail{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--teal);border:1px solid rgba(61,214,176,.3);background:rgba(61,214,176,.07);padding:5px 12px;border-radius:99px;margin-bottom:20px}
+  .avail::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  h1{margin:0;font-size:clamp(2.3rem,5.6vw,3.9rem);line-height:1.04;font-weight:700;letter-spacing:-.03em}
+  .role{margin:14px 0 0;font-size:clamp(1.02rem,2.2vw,1.22rem);color:var(--amber);font-weight:500}
+  .pitch{margin:16px 0 0;color:var(--muted);font-size:17px;line-height:1.68;max-width:58ch}
+
+  .switch{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .switch .lab{font-size:13px;color:#64768F}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .seg button{
+    background:transparent;border:0;color:var(--muted);font:inherit;font-size:14px;
+    padding:8px 16px;cursor:pointer;border-right:1px solid var(--line);
+  }
+  .seg button:last-child{border-right:0}
+  .seg button:hover{color:var(--text)}
+  .seg button[aria-pressed="true"]{background:var(--amber);color:#0C1320;font-weight:500}
+
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .btn{display:inline-block;padding:12px 22px;border-radius:5px;font-size:15px;font-weight:500;border:1px solid var(--amber);background:var(--amber);color:#0C1320}
+  .btn:hover{text-decoration:none;filter:brightness(1.08)}
+  .btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--muted)}
+
+  .stats{display:flex;flex-wrap:wrap;gap:0 40px;margin-top:32px;padding-top:22px;border-top:1px solid var(--line-2)}
+  .stats div{padding:4px 0}
+  .stats .fig{font-size:1.55rem;font-weight:700;color:var(--teal);line-height:1.15}
+  .stats .lab{font-size:12.5px;color:var(--muted)}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(50px,7vw,82px) 0;border-bottom:1px solid var(--line-2)}
+  .head{margin:0 0 32px}
+  .kicker{font-size:12.5px;color:var(--amber);margin:0 0 8px;font-weight:500}
+  .head h2{margin:0;font-size:clamp(1.5rem,3.4vw,2.05rem);font-weight:700;letter-spacing:-.02em}
+  .head p{margin:10px 0 0;color:var(--muted);max-width:62ch;font-size:16px}
+
+  .about{display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(28px,5vw,58px)}
+  .about p{color:var(--body);font-size:16.5px;line-height:1.75;margin:0 0 1.05em;max-width:64ch}
+  .about p:last-child{margin:0}
+  .facts{border-left:1px solid var(--line);padding-left:24px;align-self:start}
+  .facts dt{font-size:12px;color:var(--muted);margin-bottom:3px}
+  .facts dd{margin:0 0 16px;font-size:15px;font-weight:500;line-height:1.45}
+  .facts dd:last-child{margin-bottom:0}
+  .facts dd small{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+
+  /* skills */
+  .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2)}
+  .layer{background:var(--bg);padding:20px 22px}
+  .layer h3{margin:0 0 3px;font-size:15px;font-weight:600}
+  .layer .what{font-size:12.5px;color:#64768F;margin:0 0 13px}
+  .layer ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:7px}
+  .layer li{font-size:12.5px;color:var(--body);background:var(--panel);border:1px solid var(--line);padding:4px 9px;border-radius:4px}
+  .layer li.lead{border-color:rgba(255,180,84,.4);color:var(--amber)}
+
+  /* experience */
+  .job{display:grid;grid-template-columns:190px minmax(0,1fr);gap:6px 32px;padding:26px 0;border-top:1px solid var(--line-2)}
+  .job:first-of-type{border-top:0;padding-top:0}
+  .when{font-size:13.5px;color:var(--muted);padding-top:3px}
+  .when .co{display:block;color:var(--text);font-weight:500;font-size:15px;margin-bottom:2px}
+  .job h3{margin:0 0 8px;font-size:1.12rem;font-weight:600}
+  .job ul{margin:0;padding-left:18px;color:var(--body)}
+  .job li{margin-bottom:8px;font-size:15.5px;line-height:1.62;max-width:72ch}
+  .job li:last-child{margin-bottom:0}
+  .job li b{color:var(--teal);font-weight:600}
+
+  /* projects */
+  .proj{border:1px solid var(--line);border-radius:9px;padding:24px;margin-bottom:16px;background:var(--bg-2)}
+  .proj:last-child{margin-bottom:0}
+  .proj:hover{border-color:#35465F}
+  .ptop{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:12px}
+  .proj h3{margin:0;font-size:1.14rem;font-weight:600}
+  .ptype{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:99px}
+  .proj ul{margin:0 0 16px;padding-left:18px;color:var(--body)}
+  .proj li{font-size:15.5px;line-height:1.65;margin-bottom:7px;max-width:74ch}
+  .proj li:last-child{margin-bottom:0}
+  .impact{display:flex;flex-wrap:wrap;gap:8px 34px;padding:14px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin-bottom:14px}
+  .impact div{min-width:110px}
+  .impact .fig{font-size:1.12rem;font-weight:700;color:var(--teal)}
+  .impact .lab{font-size:12px;color:var(--muted)}
+  .prow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 20px;align-items:center}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;font-size:12.5px}
+  .tags span{color:var(--muted)}
+  .plinks{display:flex;gap:16px;font-size:14.5px}
+
+  /* credentials */
+  .creds{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .cred{border-left:2px solid var(--line);padding-left:18px}
+  .cred h3{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--muted)}
+  .cred p{margin:0 0 7px;font-size:15.5px;color:var(--body);line-height:1.55}
+  .cred p:last-child{margin:0}
+  .cred em{font-style:normal;color:var(--text)}
+
+  /* contact */
+  .contact{display:grid;grid-template-columns:1fr auto;gap:34px;align-items:center}
+  .contact h2{margin:0;font-size:clamp(1.6rem,3.6vw,2.3rem);letter-spacing:-.02em}
+  .contact p{color:var(--muted);margin:12px 0 0;max-width:52ch;font-size:16.5px}
+  .reach{display:flex;flex-direction:column;gap:11px;font-size:15px}
+  .reach a,.reach span.row{display:flex;gap:10px;align-items:baseline;color:var(--text)}
+  .reach a:hover{color:var(--amber);text-decoration:none}
+  .reach .t{font-size:12px;color:var(--muted);width:72px;flex:none}
+
+  footer{padding:26px 0 42px;font-size:13px;color:#64768F}
+
+  @media (max-width:920px){
+    .stack{grid-template-columns:repeat(2,1fr)}
+    .about,.contact{grid-template-columns:1fr}
+    .facts{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}
+    .job{grid-template-columns:1fr;gap:10px}
+  }
+  @media (max-width:720px){
+    .stack{grid-template-columns:1fr}
+    .links{display:none;position:absolute;top:62px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg-2);border-bottom:1px solid var(--line);padding:6px 0}
+    .links.open{display:flex}
+    .links a{padding:11px var(--pad);border-bottom:0}
+    .links a.on{border-bottom:0;color:var(--amber)}
+    .burger{display:block}
+    .resume{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+  /* visual project cards */
+  .proj{padding:0;overflow:hidden;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+  .proj:hover{transform:translateY(-3px);box-shadow:0 14px 38px rgba(0,0,0,.16)}
+  .proj-cover{height:220px;display:block;width:100%;object-fit:cover;background:#14243a;border-bottom:1px solid var(--line)}
+  .proj-content{padding:25px}
+  .proj-summary{font-size:15.5px;line-height:1.75;color:var(--body);margin:0 0 16px;max-width:80ch}
+  .plinks a{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+  .plinks a:hover{color:var(--teal)}
+  @media(max-width:720px){.proj-cover{height:165px}.proj-content{padding:19px}}
+  .project-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 14px}.filter-bar{display:flex;gap:8px;flex-wrap:wrap}.filter{font:inherit;font-size:13px;cursor:pointer;padding:9px 14px;border:1px solid var(--line);background:var(--panel);color:var(--body);border-radius:99px}.filter.active,.filter:hover{background:var(--amber);color:#101827;border-color:var(--amber)}#project-search{font:inherit;background:var(--bg-2);border:1px solid var(--line);color:var(--text);padding:10px 14px;border-radius:7px;min-width:220px}.project-count{font-size:13px;color:var(--muted);margin:0 0 20px}.proj{overflow:hidden;transition:transform .2s ease,border-color .2s ease}.proj:hover{transform:translateY(-3px);border-color:var(--amber)}.project-detail{color:var(--body);line-height:1.75}.proj[hidden]{display:none!important}.proj .impact .lab{max-width:390px}.hero{background:radial-gradient(ellipse at 85% 20%,rgba(61,214,176,.07),transparent 48%)}@media(max-width:700px){#project-search{width:100%}.project-tools{align-items:stretch}}
+</style>
+<style>
+/* 2026 editorial redesign */
+:root{--bg:#090e19;--bg-2:#111b2a;--panel:#182337;--amber:#e6fa85;--teal:#78e7d1;--line:#2c3850;--text:#f3f6fa;--muted:#a6b3c8}
+body{background:var(--bg)}.brand{font-size:19px;letter-spacing:-.05em}.nav{background:rgba(9,14,25,.9)}
+.hero{padding:0;border-bottom:1px solid var(--line);background:radial-gradient(circle at 75% 40%,#142238 0,transparent 48%)}
+.hero-layout{display:grid;grid-template-columns:1.12fr .88fr;min-height:610px;gap:45px;align-items:center;padding:66px 0 44px}
+.eyebrow{display:flex;align-items:center;gap:11px;color:var(--teal);font:11px 'JetBrains Mono',monospace;letter-spacing:.12em;font-weight:600}.spark,.green-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);display:inline-block;box-shadow:0 0 14px #78e7d166}.eyebrow-line{height:1px;width:40px;background:var(--teal);opacity:.5}
+.hero h1{font-size:clamp(3.4rem,6vw,6rem);line-height:1.04;letter-spacing:-.07em;max-width:none;margin:28px 0}.hero h1 em{font-style:normal;color:var(--amber)}.dot{color:var(--teal)}
+.hero-intro{color:var(--body);font-size:clamp(16px,1.55vw,19px);line-height:1.75;max-width:530px}.hero-intro strong{color:#fff}
+.hero-roles{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.hero-roles span{font:10px 'JetBrains Mono',monospace;letter-spacing:.05em;color:#c2d0e4;border:1px solid #35445a;padding:8px 11px;border-radius:4px}
+.hero .switch{margin-top:25px}.hero .cta{margin-top:24px}.hero-social{display:flex;gap:23px;margin-top:25px}.hero-social a{color:#b3c3d8;font-size:13px}.hero-social a:hover{color:var(--amber)}
+.hero-art{height:455px;position:relative;overflow:hidden;background:linear-gradient(145deg,#16243a,#0d1524 65%);border:1px solid #32435d;border-radius:15px;box-shadow:20px 25px 70px #0005;isolation:isolate}.art-grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff0b 1px,transparent 1px),linear-gradient(90deg,#ffffff0b 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(black,transparent 90%)}.orbit{position:absolute;border:1px solid #a2f2dc44;border-radius:50%;width:310px;height:310px;left:50%;top:49%;transform:translate(-50%,-50%)}.orbit-two{width:410px;height:410px;border-color:#dfffa51b}.art-title{position:absolute;left:25px;top:22px;font:12px 'JetBrains Mono',monospace;letter-spacing:.18em;color:#e2f0ff}.art-title span{color:var(--amber)}.art-center{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);text-align:center}.art-glyph{font-size:clamp(130px,15vw,205px);font-weight:700;line-height:1;letter-spacing:-.1em;color:#eaf4f4;text-shadow:0 0 50px #71f1cf55}.art-glyph span{color:var(--amber)}.art-sub{font:11px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#9eb8ca}.art-float{position:absolute;font:10px 'JetBrains Mono',monospace;letter-spacing:.08em;background:#162c3b;border:1px solid #486479;padding:9px;color:#ccebe5;border-radius:4px}.float-a{top:22%;right:6%}.float-b{bottom:30%;left:5%}.float-c{bottom:24%;right:5%}.art-bottom{position:absolute;bottom:20px;left:22px;right:22px;display:flex;justify-content:space-between;gap:10px;font:10px 'JetBrains Mono',monospace;color:#a9c4d4;border-top:1px solid #ffffff24;padding-top:14px}.hero-foot{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;padding:19px 0;font-size:12px;color:#b4c1d4}.hero-foot a{font:11px 'JetBrains Mono',monospace;letter-spacing:.1em}.green-dot{height:7px;width:7px;margin-right:8px}
+#projects .head h2{max-width:680px}.projects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}.projects-grid .proj{margin:0;min-width:0;display:flex;flex-direction:column;border-radius:12px}.projects-grid .proj-cover{height:205px;object-fit:cover}.projects-grid .proj-content{display:flex;flex-direction:column;flex:1;padding:17px}.projects-grid .ptop{order:0;margin-bottom:12px}.projects-grid .proj-summary{order:1;font-size:14px;line-height:1.65}.projects-grid .project-detail{order:2;font-size:13px;line-height:1.65}.projects-grid ul{order:3}.projects-grid li{font-size:13px;line-height:1.55}.projects-grid .impact{order:4;margin-top:auto}.projects-grid .prow{order:5}.projects-grid .tags{font-size:11px}.projects-grid .ptype{font-size:10px}.projects-grid .impact .fig{font-size:13px}.projects-grid .impact .lab{font-size:11px}.projects-grid .proj h3{font-size:19px}.projects-grid .plinks{font-size:12px;flex-wrap:wrap}.projects-grid .proj:hover{transform:translateY(-5px);box-shadow:0 20px 50px #0006}
+@media(max-width:900px){.hero-layout{grid-template-columns:1fr;gap:26px;padding-top:52px}.hero-art{height:350px}.hero h1{font-size:clamp(3.4rem,10vw,5rem)}}
+@media(max-width:650px){.projects-grid{grid-template-columns:1fr}.hero-layout{padding:40px 0 28px}.hero-art{height:300px}.hero h1{font-size:clamp(3.15rem,12vw,4.4rem)}.hero-foot{flex-wrap:wrap}.art-glyph{font-size:150px}}
+@media(prefers-reduced-motion:no-preference){.art-glyph{animation:float 5s ease-in-out infinite}@keyframes float{50%{transform:translateY(-10px)}}}
+</style><style>
+/* Light editorial redesign */
+:root{--bg:#FAFAF7;--bg-2:#FFFFFF;--panel:#F1F4F0;--line:#DCE3DE;--line-2:#E7ECE7;--text:#172B27;--muted:#5F716C;--body:#354943;--amber:#246B58;--teal:#137C67}
+body{background:var(--bg);color:var(--text)}
+a{color:var(--amber)}
+.nav{background:rgba(250,250,247,.96);border-bottom:1px solid var(--line)}
+.brand i{color:#C38B4D}.links a{color:var(--muted)}.links a:hover,.links a.on{color:var(--text)}
+.resume{background:#1D6654;color:#fff}.resume:hover{color:#fff}
+.hero{background:linear-gradient(135deg,#FCFCF8 0%,#F0F6EF 100%);padding:0;border-bottom:1px solid var(--line)}
+.new-hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.72fr);gap:clamp(30px,5vw,80px);padding:clamp(65px,9vw,118px) 0 66px;align-items:center}
+.availability{display:inline-flex;align-items:center;gap:9px;padding:9px 14px;border:1px solid #C8DDD0;background:#E8F4EC;color:#25684B;border-radius:100px;font:600 11px 'JetBrains Mono',monospace;letter-spacing:.03em}
+.pulse{height:8px;width:8px;border-radius:50%;background:#2B9B64;box-shadow:0 0 0 4px #2B9B641b}
+.hero-eyebrow{margin:38px 0 10px;color:#7B8B81;font:600 13px 'JetBrains Mono',monospace;letter-spacing:.18em}
+.hero h1{font-size:clamp(4rem,8vw,7rem);line-height:1;letter-spacing:-.085em;max-width:none;margin:0;color:#152B25}
+.hero h1 span{color:#2E8067}
+.hero-title{font-size:clamp(16px,2vw,22px);font-weight:600;color:#294C40;margin:25px 0 16px;line-height:1.6}
+.separator{color:#B7C9BE;margin:0 5px}.hero-description{font-size:17px;line-height:1.8;color:#546A60;max-width:580px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{background:#1D6654;border-color:#1D6654;color:white;border-radius:9px;padding:13px 20px}.btn:hover{color:white}
+.btn.ghost{background:white;color:#235A49;border-color:#C9D9CF}.btn.ghost:hover{color:#235A49}
+.hero-social{display:flex;gap:25px;margin-top:26px}.hero-social a{color:#3C6958;font-size:14px}
+.hero-side{background:#fff;border:1px solid #D8E4DA;border-radius:20px;padding:29px 31px;box-shadow:0 25px 55px #1D66540e}
+.hero-side-top{display:flex;align-items:center;justify-content:space-between;color:#6B8276;font:600 11px 'JetBrains Mono',monospace;letter-spacing:.14em;border-bottom:1px solid #E7ECE7;padding-bottom:19px}
+.side-icon{font-size:25px;color:#2E8067}.side-entry{padding:20px 0;border-bottom:1px solid #E7ECE7}.side-entry:last-child{border-bottom:0;padding-bottom:0}
+.side-label{display:block;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.14em;color:#7E9387;margin-bottom:9px}.side-entry strong{display:block;font-size:17px;line-height:1.5;color:#1C3B30}.side-entry small{display:block;margin-top:7px;color:#72877B;font-size:12px;line-height:1.6}
+.hero-bottom{display:flex;justify-content:space-between;gap:20px;padding:20px 0;border-top:1px solid #DCE8DE;color:#73887B;font:11px 'JetBrains Mono',monospace;letter-spacing:.07em}.hero-bottom a{color:#236B55}
+.proj{background:#fff}.projects-grid .proj:hover{box-shadow:0 20px 45px #1c554018}
+.layer{background:#fff}.layer li{background:#F3F6F1}.layer li.lead{color:#206C55;border-color:#9FCBB6}
+.seg button[aria-pressed="true"],.filter.active,.filter:hover{background:#1D6654;border-color:#1D6654;color:white}
+.job li b,.impact .fig,.stats .fig{color:#187D62}
+#project-search{background:#fff;color:#172B27}.filter{background:#fff;color:#354943}
+.proj .proj-summary,.proj .project-detail,.proj li{color:#354943}
+.reach a{color:#1E4D3C}
+@media(max-width:850px){.new-hero{grid-template-columns:1fr;padding-top:65px}.hero-side{max-width:600px}.hero h1{font-size:clamp(3.6rem,11vw,6rem)}}
+@media(max-width:600px){.new-hero{padding:48px 0 35px}.hero h1{font-size:clamp(3.5rem,14vw,5rem)}.hero-bottom{flex-wrap:wrap}.hero-side{padding:23px}.availability{font-size:9px}.hero-title{font-size:16px}}
+</style><style>
+/* Narrower, centered project grid on desktop */
+@media(min-width:721px){#projects .projects-grid{max-width:900px;margin-left:auto;margin-right:auto}}
+/* Solid color placeholders in place of project images */
+.projects-grid .project-color-square{display:block;width:100%;height:140px;flex-shrink:0;border-bottom:1px solid var(--line)}
+@media(max-width:720px){.projects-grid .project-color-square{height:115px}}
+</style><style>
+/* Three compact project cards per row on desktop */
+@media (min-width: 1050px) {
+  #projects .projects-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1120px; gap: 16px; }
+  #projects .projects-grid .proj-content { padding: 15px; }
+  #projects .projects-grid .proj h3 { font-size: 17px; }
+  #projects .projects-grid .project-color-square { height: 115px; }
+}
+@media (min-width: 651px) and (max-width: 1049px) {
+  #projects .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
+<style>
+/* Experience refresh: contained cards, clear hierarchy, and subtle timeline accents */
+#experience .job {
+  position:relative;
+  grid-template-columns:185px minmax(0,1fr);
+  gap:28px;
+  margin:0 0 18px;
+  padding:27px 30px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(115deg,rgba(120,231,209,.065),transparent 45%),var(--bg-2);
+  box-shadow:0 8px 28px rgba(0,0,0,.075);
+  transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+#experience .job:first-of-type {padding-top:27px;border-top:1px solid var(--line)}
+#experience .job:hover {border-color:var(--teal);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.12)}
+#experience .job::before {content:"";position:absolute;top:26px;bottom:26px;left:0;width:3px;border-radius:0 3px 3px 0;background:var(--teal)}
+#experience .job:nth-of-type(3)::before {background:var(--amber)}
+#experience .when {padding:2px 20px 0 0;border-right:1px solid var(--line);font-size:13px;line-height:1.8;color:var(--muted)}
+#experience .when .co {font-size:18px;font-weight:700;letter-spacing:-.025em;color:var(--text);margin-bottom:6px}
+#experience .job h3 {font-size:18px;letter-spacing:-.02em;margin:0 0 13px;color:var(--text)}
+#experience .job ul {padding-left:19px}
+#experience .job li {font-size:14.5px;line-height:1.7;margin-bottom:9px}
+#experience .job li::marker {color:var(--teal)}
+@media(max-width:920px){#experience .job{grid-template-columns:1fr;gap:16px;padding:22px 23px}#experience .when{border-right:0;border-bottom:1px solid var(--line);padding:0 0 13px}}
+@media(max-width:540px){#experience .job{padding:20px 18px}#experience .job:first-of-type{padding-top:20px}}
+@media(prefers-reduced-motion:reduce){#experience .job{transition:none}#experience .job:hover{transform:none}}
+</style>
+<style>
+/* Consistent project cards: matching hierarchy, category badges and aligned links */
+#projects .projects-grid .uniform-project{display:flex;flex-direction:column;min-width:0}
+#projects .projects-grid .uniform-project .proj-content{display:flex;flex-direction:column;flex:1;gap:0}
+#projects .projects-grid .uniform-project .ptop{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin:0 0 12px;min-height:78px}
+#projects .projects-grid .uniform-project .ptype{font:600 10px 'JetBrains Mono',monospace;letter-spacing:.045em;text-transform:uppercase;color:#246B58;background:#EAF4EC;border:1px solid #CFE3D5;border-radius:999px;padding:5px 9px}
+#projects .projects-grid .uniform-project .proj-summary{margin:0 0 12px}
+#projects .projects-grid .uniform-project .project-detail{margin:0 0 12px}
+#projects .projects-grid .uniform-project .impact{margin-top:12px}
+#projects .projects-grid .uniform-project .prow{margin-top:auto;display:block;padding-top:14px}
+#projects .projects-grid .uniform-project .tags{display:flex;gap:7px;flex-wrap:wrap}
+#projects .projects-grid .uniform-project .plinks{display:flex;gap:9px;flex-wrap:wrap;align-items:center;min-height:50px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-2)}
+#projects .projects-grid .uniform-project .plinks a{display:inline-flex;justify-content:center;align-items:center;min-height:34px;padding:7px 12px;border:1px solid #C9D9CF;border-radius:7px;background:#F5FAF6;color:#205E4B;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap}
+#projects .projects-grid .uniform-project .plinks a:hover{background:#E5F3E9;border-color:#8FBEA4;text-decoration:none}
+@media(max-width:650px){#projects .projects-grid .uniform-project .ptop{min-height:0}}
+</style></head>
+<body class="mode-da">
+<nav class="nav">
+<div class="wrap">
+<a class="brand" href="#top">reva<i>.</i>pethe</a>
+<button aria-controls="links" aria-expanded="false" class="burger" id="burger">Menu</button>
+<div class="links" id="links">
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#experience">Experience</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+<a class="resume" download="" href="Reva_Pethe_Resume_DE.pdf">Download resume</a>
+</div>
+</nav>
+<header class="hero" id="top"><div class="wrap"><div class="new-hero"><div class="new-hero-main"><div class="availability"><span class="pulse"></span> OPEN TO FULL-TIME OPPORTUNITIES · ACROSS THE U.S.</div><p class="hero-eyebrow">HELLO, I'M</p><h1>Reva <span>Pethe.</span></h1><p class="hero-title">Data Engineer <span class="separator">/</span> Data Analyst</p><p class="hero-description">I build reliable data pipelines, intelligent analytics solutions, and experiences that turn complex information into clear decisions.</p><div class="hero-actions"><a class="btn" href="#projects">Explore my projects ↗</a><a class="btn ghost" href="mailto:pethe.r@northeastern.edu?subject=Portfolio%20Inquiry%20%E2%80%94%20Reva%20Pethe">Email Me ↗</a></div><div class="hero-social"><a href="https://www.linkedin.com/in/reva-pethe" rel="noopener" target="_blank">LinkedIn ↗</a><a href="https://github.com/revapethe" rel="noopener" target="_blank">GitHub ↗</a></div></div><aside class="hero-side"><div class="side-entry"><span class="side-label">EDUCATION</span><strong>Master of Science<br/>Information Systems</strong><small>Northeastern University · Boston<br/></small></div><div class="side-entry"><span class="side-label">OPEN TO ROLES</span><strong>Data Engineer<br/>Data Analyst<br/>Business Intelligence Analyst</strong><small>Full-time · United States · Open to relocation</small></div><div class="side-entry"><span class="side-label">EXPERIENCE</span><strong>MindShare · Symbiosis</strong><small>Python · SQL · AWS · Power BI · Databricks</small></div></aside></div><div class="hero-bottom"><span>SELECTED WORK · DATA ENGINEERING · ANALYTICS · AI</span><a href="#projects">DISCOVER PROJECTS ↓</a></div></div></header>
+<main>
+<section id="about">
+<div class="wrap">
+<div class="head">
+<h2>About</h2>
+</div>
+<div class="about">
+<div>
+<p>I'm a recent graduate from Northeastern University with a Master's in Information Systems, specializing in Data Engineering and Data Analytics.</p>
+<p>I have hands-on experience working with Python, SQL, AWS, Databricks, Power BI, and other data technologies to build data pipelines, analyze datasets, and develop meaningful business insights. Through my professional experience and academic projects, I've worked on data processing, automation, predictive analytics, and interactive dashboards.</p>
+<p>I'm passionate about solving real-world problems using data, continuously learning new technologies, and building solutions that make a difference.</p>
+</div>
+<dl class="facts">
+<dt>Education</dt>
+<dd>MS Information Systems<small>Northeastern University, Boston · Sep 2024 – Aug 2026</small></dd>
+<dt>Location</dt><dd>United States<small>Open to relocation and remote</small></dd>
+<dt>Strongest in</dt><dd class="v-da">SQL, Python, AWS, Power BI</dd><dd class="v-de">SQL, Python, PySpark, AWS</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="skills">
+<div class="wrap">
+<div class="head">
+<h2>Skills</h2>
+</div>
+<div class="stack">
+<div class="layer">
+<h3>Languages</h3>
+<p class="what">Written daily</p>
+<ul><li class="lead">SQL</li><li class="lead">Python</li><li>R</li></ul>
+<p class="what" style="margin:12px 0 0">SQL includes joins, CTEs, window functions, and query optimization.</p>
+</div>
+<div class="layer">
+<h3>Databases &amp; warehousing</h3>
+<p class="what">Where the data lives</p>
+<ul><li class="lead">PostgreSQL</li><li>MySQL</li><li>SQL Server</li><li class="lead">Snowflake</li><li>MongoDB</li><li>Data modeling</li></ul>
+</div>
+<div class="layer">
+<h3>Pipelines &amp; cloud</h3>
+<p class="what">Moving and transforming it</p>
+<ul><li class="lead">PySpark</li><li class="lead">Databricks</li><li>AWS Glue</li><li>AWS S3</li><li>Apache Airflow</li><li>Docker</li><li>CI/CD</li></ul>
+</div>
+<div class="layer">
+<h3>Analysis</h3>
+<p class="what">Making sense of it</p>
+<ul><li class="lead">Pandas</li><li>NumPy</li><li>Scikit-learn</li><li>Statistical analysis</li><li>Jupyter</li></ul>
+</div>
+<div class="layer">
+<h3>Visualization &amp; BI</h3>
+<p class="what">Where it meets people</p>
+<ul><li class="lead">Power BI</li><li>Tableau</li><li>DAX</li><li>Matplotlib</li><li>Seaborn</li><li>Plotly</li><li>Streamlit</li></ul>
+</div>
+<div class="layer">
+<h3>Excel, properly</h3>
+<p class="what">Still how half the business works</p>
+<ul><li>Pivot tables</li><li>Power Query</li><li>VLOOKUP</li></ul>
+</div>
+</div>
+</div>
+</section>
+<section id="experience">
+<div class="wrap">
+<div class="head">
+<h2>Experience</h2>
+</div>
+<div class="job">
+<div class="when"><span class="co">MindShare</span>Data Analyst<br/>United States<br/>Jan 2026 – May 2026</div>
+<div>
+<h3>Voice-driven purchase order analytics</h3>
+<ul class="v-da">
+<li>Analyzed 50,000+ voice command and purchase order records in SQL and Python, using CTEs and window functions to surface workflow trends and build analytics-ready datasets — cutting manual preprocessing by <b>30%</b>.</li>
+<li>Developed a voice-driven purchase order approval application with Python, NLP, and speech recognition, improving command recognition accuracy by <b>20%</b> and removing manual steps from the approval flow.</li>
+<li>Defined and monitored KPIs for approval volume, processing time, exception rates, and recognition failures, with validation and logging checks to keep reporting accurate.</li>
+<li>Built reports on approval throughput and exception trends for procurement and operations, translating the findings into recommendations on approval thresholds.</li>
+</ul>
+<ul class="v-de">
+<li>Built Python and SQL pipelines over 50,000+ voice-command and purchase-order records, converting raw speech transcripts into structured, query-ready tables and reducing manual preprocessing by <b>30%</b>.</li>
+<li>Developed a real-time processing flow using Python, NLP, and speech recognition that turned spoken approvals into validated purchase orders, improving recognition accuracy by <b>20%</b>.</li>
+<li>Implemented schema validation, logging, and pipeline monitoring across the workflow to catch malformed orders early and keep procurement data reliable downstream.</li>
+<li>Integrated RESTful APIs and backend services to move approved order data securely between the voice layer, databases, and procurement applications.</li>
+</ul>
+</div>
+</div>
+<div class="job">
+<div class="when"><span class="co">Symbiosis</span>Data Engineer<br/>India<br/>May 2023 – Jun 2024</div>
+<div>
+<h3>Tourism and booking data platform</h3>
+<ul class="v-da">
+<li>Analyzed tourism and booking data and built Power BI dashboards tracking seasonality, occupancy, and revenue, using DAX measures, Power Query, and pivot tables for recurring reporting.</li>
+<li>Designed PostgreSQL fact and dimension models for bookings and revenue, improving consistency and making analysis faster to run.</li>
+<li>Cleaned and analyzed high-volume visitor arrival, booking, and regional travel datasets with SQL, Python, PySpark, and Databricks.</li>
+<li>Automated preparation and transformation across AWS S3, Glue, and Databricks, cutting daily processing time by <b>25%</b>.</li>
+</ul>
+<ul class="v-de">
+<li>Built PySpark and SQL pipelines on Databricks consolidating visitor survey, booking, and regional travel data from tourism research studies into analysis-ready tables.</li>
+<li>Optimized ingestion and transformation across AWS S3, Glue, and Databricks, partitioning survey data by region and season to cut daily processing time by <b>25%</b>.</li>
+<li>Modeled PostgreSQL fact and dimension tables for visitor volume, bookings, and seasonal revenue, improving query performance and consistency downstream.</li>
+<li>Worked with researchers and analysts to turn study requirements into curated data marts and Power BI dashboards, reducing ad-hoc data pull requests.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="projects">
+<div class="wrap">
+<div class="head">
+<h2>Projects</h2>
+</div>
+<div class="project-tools"><div aria-label="Filter projects" class="filter-bar" role="group"><button aria-pressed="true" class="filter active" data-filter="all">All projects</button><button aria-pressed="false" class="filter" data-filter="engineering">Data engineering</button><button aria-pressed="false" class="filter" data-filter="analytics">Analytics &amp; BI</button><button aria-pressed="false" class="filter" data-filter="ai">AI &amp; ML</button></div><input aria-label="Search projects" id="project-search" placeholder="Search projects or technologies…" type="search"/></div><p aria-live="polite" class="project-count" id="project-count"></p>
+<div class="projects-grid"><article class="proj uniform-project" data-category="engineering ai"><div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#D8E9DF"></div><div class="proj-content"><div class="ptop"><h3>FoodFlow AI - Data Pipeline &amp; Analytics</h3><span class="ptype">Data Engineering</span></div><p class="proj-summary">An end-to-end food data engineering project designed to turn raw operational data into trustworthy, analysis-ready information.</p><p class="project-detail">Structured ingestion and transformation workflows with Python and SQL, designed analytics-oriented data models, and explored dbt and orchestration tooling for repeatable pipeline execution.</p><div class="impact"><div><div class="fig">Project focus</div><div class="lab">Demonstrates an architecture-first approach to scalable and maintainable data workflows.</div></div></div><div class="prow"><div class="tags mono"><span>Python</span><span>SQL</span><span>dbt</span><span>Airflow</span><span>Snowflake</span></div></div><div class="plinks"><a href="https://github.com/revapethe/foodflow-ai" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div></div></article><article class="proj uniform-project" data-category="engineering analytics ai">
+<div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E8E4D7"></div>
+<div class="proj-content"><div class="ptop">
+<h3>AI-Powered Payroll Analytics</h3>
+<span class="ptype">Data Engineering &amp; AI</span>
+</div><p class="proj-summary">A cross-country payroll analytics platform that cleans and standardizes employee compensation data, models it for reporting, and lets stakeholders ask payroll questions in natural language. The workflow covers ingestion, transformation, database modeling, and self-service analysis.</p>
+
+
+<ul class="v-da">
+<li>Analyzed 50,000+ employee records across the USA and India in PostgreSQL, using window functions and CTEs to quantify salary trends, departmental pay gaps, and headcount distribution.</li>
+<li>Built a natural-language query layer that turned business questions into dynamic SQL, letting stakeholders self-serve compensation analysis without waiting on a data pull.</li>
+</ul>
+<ul class="v-de">
+<li>Built a Python ETL pipeline loading 50,000+ employee records across the USA and India into PostgreSQL and Snowflake, standardizing salary, department, and location fields.</li>
+<li>Modeled payroll tables with dbt and added a natural-language layer converting business questions into dynamic SQL for self-service analysis.</li>
+</ul>
+<div class="impact">
+<div><div class="fig">50K+</div><div class="lab">Employee records</div></div>
+<div><div class="fig">2</div><div class="lab">Countries reconciled</div></div>
+<div><div class="fig">Live</div><div class="lab">Streamlit demo</div></div>
+</div>
+<div class="prow">
+<div class="tags mono"><span>python</span><span>postgresql</span><span>etl</span><span class="v-de">dbt</span><span class="v-de">snowflake</span></div>
+
+</div>
+<div class="plinks">
+<a href="https://github.com/revapethe/finance_payroll_analytics" rel="noopener noreferrer" target="_blank">GitHub ↗</a>
+<a href="https://financepayrollanalytics3.streamlit.app/" rel="noopener noreferrer" target="_blank">Live demo ↗</a>
+</div></div>
+</article><article class="proj uniform-project" data-category="ai">
+<div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E5E2F2"></div>
+<div class="proj-content"><div class="ptop">
+<h3>Predictive Modeling of Healthcare Cost</h3>
+<span class="ptype">Machine Learning</span>
+</div><p class="proj-summary">An end-to-end predictive analytics application that prepares healthcare data, validates features, compares Random Forest and XGBoost models, and presents cost predictions in an interactive Streamlit interface.</p>
+
+
+<ul class="v-da">
+<li>Analyzed healthcare records through cleaning, feature engineering, schema validation, and preprocessing to find the patterns that actually move cost.</li>
+<li>Built an interactive Streamlit application around XGBoost and Random Forest models so the results could be explored rather than read off a slide.</li>
+</ul>
+<ul class="v-de">
+<li>Built a Python preprocessing pipeline over healthcare records covering cleaning, schema validation, and feature engineering to produce reproducible model-ready datasets.</li>
+<li>Developed a Streamlit application serving XGBoost and Random Forest models, with Git version control and CI/CD automating testing and deployment.</li>
+</ul>
+<div class="impact">
+<div><div class="fig">2</div><div class="lab">Models compared</div></div>
+<div><div class="fig">CI/CD</div><div class="lab">Automated deployment</div></div>
+<div><div class="fig">Live</div><div class="lab">Streamlit demo</div></div>
+</div>
+<div class="prow">
+<div class="tags mono"><span>python</span><span>scikit-learn</span><span>xgboost</span><span>pandas</span><span>ci/cd</span></div>
+
+</div>
+<div class="plinks">
+<a href="https://github.com/revapethe/healthcare_cost_prediction" rel="noopener noreferrer" target="_blank">GitHub ↗</a>
+<a href="https://healthcare-cost-prediction-project.streamlit.app/" rel="noopener noreferrer" target="_blank">Live demo ↗</a>
+</div></div>
+</article><article class="proj uniform-project" data-category="analytics">
+<div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E3EDF3"></div>
+<div class="proj-content"><div class="ptop"><h3>Sports Performance BI Analytics</h3><span class="ptype">Analytics &amp; BI</span></div><p class="proj-summary">An interactive sports intelligence dashboard designed to turn cricket performance data into actionable insights. The report uses Power BI visuals, filters, and performance measures to explore player and team trends and compare results across matches.</p>
+
+
+<ul><li>Designed an interactive reporting experience for exploring cricket statistics and identifying performance patterns.</li><li>Used Power BI data modeling, DAX measures, and visual storytelling to make sports data easier to interpret.</li></ul>
+<div class="prow"><div class="tags mono"><span>power-bi</span><span>dax</span><span>sports-analytics</span><span>data-visualization</span></div></div>
+<div class="plinks"><a href="https://github.com/revapethe/cricIQ_BI_analysis" rel="noopener noreferrer" target="_blank" title="Browse GitHub profile to find the sports repository">GitHub ↗</a></div></div></article><article class="proj uniform-project" data-category="ai analytics">
+<div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#F2E2DD"></div>
+<div class="proj-content"><div class="ptop">
+<h3>US Masters Admission Prediction</h3>
+<span class="ptype">Machine Learning</span>
+</div><p class="proj-summary">A data science project that prepares applicant records with SQL and Python, uses predictive modeling to study admission outcomes, and communicates patterns through Power BI dashboards.</p>
+
+
+<ul class="v-da">
+<li>Analyzed applicant profiles from across the US in MySQL and Python, using SQL-based feature engineering to isolate the factors that actually predict admission outcomes.</li>
+<li>Built automated Pandas cleaning and validation workflows and Power BI dashboards to communicate the findings to a non-technical audience.</li>
+</ul>
+<ul class="v-de">
+<li>Ingested and transformed applicant profiles from across the US in MySQL and Python, applying SQL-based feature engineering to build a clean modeling dataset.</li>
+<li>Built automated Pandas cleaning and validation workflows and loaded curated results into Power BI dashboards for admission trend reporting.</li>
+</ul>
+<div class="impact">
+<div><div class="fig">Published</div><div class="lab">METSZET Journal, Nov 2025</div></div>
+<div><div class="fig">Random Forest</div><div class="lab">Model used</div></div>
+</div>
+<div class="prow">
+<div class="tags mono"><span>mysql</span><span>python</span><span>random-forest</span><span>power-bi</span><span>excel</span></div>
+</div>
+<div class="plinks"></div></div>
+</article><article class="proj uniform-project" data-category="ai analytics"><div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E2ECE8"></div><div class="proj-content"><div class="ptop"><h3>IMDb Movie Rating Prediction</h3><span class="ptype">Machine Learning</span></div><p class="proj-summary">A machine learning system exploring what drives movie ratings across genres, directors, runtimes, and audience patterns.</p><p class="project-detail">Prepared a large movie dataset, explored rating distributions and genre trends, compared regression models including Random Forest and XGBoost, and used clustering with PCA to discover patterns. Presented findings through interactive visual analysis.</p><div class="impact"><div><div class="fig">Project focus</div><div class="lab">Explore the modeling and visualization process; compare patterns across movie attributes.</div></div></div><div class="prow"><div class="tags mono"><span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>XGBoost</span><span>K-Means</span><span>PCA</span></div></div><div class="plinks"><a href="https://github.com/revapethe" rel="noopener noreferrer" target="_blank">GitHub profile ↗</a></div></div></article></div>
+</div>
+</section>
+<section id="credentials">
+<div class="wrap">
+<div class="head">
+<h2>Certifications &amp; Publication</h2>
+</div>
+<div class="creds">
+<div class="cred">
+<h3>Certifications</h3>
+<p><em>Data Analytics</em> — Google Cloud, Deloitte</p>
+<p><em>SQL &amp; Machine Learning</em> — LinkedIn</p>
+<p><em>Python Programming</em> — Udemy</p>
+</div>
+<div class="cred">
+<h3>Publication</h3>
+<p><em>Ambition: US Masters Prediction Using Predictive Analytics</em></p>
+<p>METSZET Journal, Vol. 8, Issue 11 — November 2025</p>
+</div>
+</div>
+</div>
+</section>
+<section id="contact">
+<div class="wrap">
+<div class="contact">
+<div>
+<h2>Contact</h2>
+<p>I'm currently open to full-time opportunities in Data Engineering, Data Analytics, and Business Intelligence. I'm always happy to connect with recruiters, hiring managers, and professionals to discuss potential opportunities, projects, or collaborations. Feel free to reach out through email or LinkedIn. Looking forward to connect!</p>
+</div>
+<div class="reach">
+<a href="mailto:pethe.r@northeastern.edu?subject=Portfolio%20Inquiry%20%E2%80%94%20Reva%20Pethe"><span class="t">Email</span>pethe.r@northeastern.edu</a>
+<a href="tel:+18573000698"><span class="t">Phone</span>857-300-0698</a>
+<a href="https://www.linkedin.com/in/reva-pethe"><span class="t">LinkedIn</span>in/reva-pethe</a>
+<a href="https://github.com/revapethe" rel="noopener noreferrer" target="_blank"><span class="t">GitHub</span>github.com/revapethe</a>
+<a href="Reva_Pethe_Resume_DE.pdf"><span class="t">Resume</span>Resume</a>
+<span class="row"><span class="t">Location</span>United States · Open to relocation</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap" style="display:flex;flex-wrap:wrap;gap:8px 24px">
+<span>© 2026 Reva Pethe</span>
+<span style="margin-left:auto"><a href="#top">Back to top</a></span>
+</div>
+</footer>
+<script>
+  // Project discovery: category and text search
+  var activeFilter='all';
+  var projectSearch=document.getElementById('project-search');
+  function updateProjects(){
+    var term=(projectSearch.value||'').toLowerCase().trim(),visible=0;
+    document.querySelectorAll('#projects article.proj').forEach(function(card){
+      var matchesCategory=activeFilter==='all'||(card.dataset.category||'').split(' ').includes(activeFilter);
+      var matchesText=!term||card.textContent.toLowerCase().includes(term);
+      card.hidden=!(matchesCategory&&matchesText);if(!card.hidden)visible++;
+    });
+    document.getElementById('project-count').textContent=visible+' project'+(visible===1?'':'s')+' shown';
+  }
+  document.querySelectorAll('.filter').forEach(function(btn){btn.addEventListener('click',function(){activeFilter=btn.dataset.filter;document.querySelectorAll('.filter').forEach(function(b){b.classList.toggle('active',b===btn);b.setAttribute('aria-pressed',String(b===btn));});updateProjects();});});
+  projectSearch.addEventListener('input',updateProjects);updateProjects();
+  // Role focus toggle
+  function setMode(mode){
+    document.body.classList.remove('mode-da','mode-de');
+    document.body.classList.add('mode-' + mode);
+    document.querySelectorAll('.seg button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-mode') === mode ? 'true' : 'false');
+    });
+  }
+
+  // Open in engineer mode with ?role=de — paste that link on engineering applications
+  var startMode = new URLSearchParams(window.location.search).get('role');
+  if (startMode === 'de' || startMode === 'da') setMode(startMode);
+
+  var segButtons = document.querySelectorAll('.seg button');
+  segButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      setMode(btn.getAttribute('data-mode'));
+    });
+  });
+
+  // Mobile menu
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('links');
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  links.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { links.classList.remove('open'); burger.setAttribute('aria-expanded', false); }
+  });
+
+  // Highlight the section currently in view
+  var navLinks = Array.prototype.slice.call(links.querySelectorAll('a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(function(a){
+          a.classList.toggle('on', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+</script>
+</body>
+</html>

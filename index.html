@@ -289,6 +289,82 @@ a{color:var(--amber)}
 #projects .projects-grid .uniform-project .plinks a{display:inline-flex;justify-content:center;align-items:center;min-height:34px;padding:7px 12px;border:1px solid #C9D9CF;border-radius:7px;background:#F5FAF6;color:#205E4B;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap}
 #projects .projects-grid .uniform-project .plinks a:hover{background:#E5F3E9;border-color:#8FBEA4;text-decoration:none}
 @media(max-width:650px){#projects .projects-grid .uniform-project .ptop{min-height:0}}
+</style>
+<style>
+/* Compact, expandable portfolio projects */
+#projects .projects-grid .uniform-project .project-color-square{display:block;height:115px}
+#projects .projects-grid .uniform-project .proj-content{padding:20px;gap:0}
+#projects .projects-grid .uniform-project .ptop{min-height:0;margin:0}
+#projects .projects-grid .uniform-project .ptop h3{font-size:17px;margin:0}
+#projects .projects-grid .uniform-project .ptype{display:none}
+#projects .projects-grid .uniform-project .project-toggle{width:100%;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;color:var(--text);font:inherit;font-size:17px;font-weight:700;cursor:pointer}
+#projects .projects-grid .uniform-project .project-toggle:hover{color:var(--amber)}
+#projects .projects-grid .uniform-project .project-toggle .chevron{font-size:22px;font-weight:400;transition:transform .2s;flex-shrink:0}
+#projects .projects-grid .uniform-project.expanded .project-toggle .chevron{transform:rotate(180deg)}
+#projects .projects-grid .uniform-project .project-expanded[hidden]{display:none!important}
+#projects .projects-grid .uniform-project .project-expanded{padding-top:17px}
+#projects .projects-grid .uniform-project .project-expanded .ptype{display:inline-flex;margin-bottom:12px}
+#projects .projects-grid .uniform-project .plinks{margin-top:15px;min-height:0;padding-top:12px}
+#projects .projects-grid .uniform-project .project-expanded .prow{margin-top:12px}
+#projects .projects-grid .uniform-project{cursor:pointer}
+#projects .projects-grid .uniform-project a,#projects .projects-grid .uniform-project button{cursor:pointer}
+</style>
+<style>
+/* Centered project detail viewer, inspired by the supplied reference */
+.project-modal{width:min(840px,calc(100vw - 30px));max-height:min(92vh,900px);border:1px solid #DCE3DE;border-radius:30px;padding:0;background:#FAFAF7;color:#172B27;box-shadow:0 28px 90px #173C2C35;overflow:hidden}
+.project-modal::backdrop{background:rgba(19,43,34,.38);backdrop-filter:blur(9px)}
+.project-modal-inner{max-height:min(92vh,900px);display:flex;flex-direction:column}
+.project-modal-body{overflow-y:auto;padding:42px 46px 35px;flex:1}
+.project-modal-kicker{font:12px 'JetBrains Mono',monospace;letter-spacing:.04em;color:#246B58;margin:0 42px 12px 0}
+.project-modal-title{font-size:clamp(26px,4vw,37px);line-height:1.2;letter-spacing:-.045em;margin:0 40px 26px 0;color:#172B27}
+.project-modal-close{position:absolute;right:24px;top:24px;border:1px solid #DCE3DE;background:transparent;border-radius:50%;width:44px;height:44px;color:#5F716C;font-size:26px;cursor:pointer}
+.project-modal-close:hover,.project-modal-nav button:hover{background:#E8F4EC}
+.project-modal-content .proj-summary{font-size:18px;line-height:1.75;color:#354943;margin:0 0 25px}
+.project-modal-content .project-detail{font-size:16px;line-height:1.75;color:#5F716C;margin-bottom:22px}
+.project-modal-content ul{padding-left:23px;margin:14px 0 24px;color:#546A60}
+.project-modal-content li{margin:0 0 14px;line-height:1.75;font-size:16px}
+.project-modal-content li::marker{color:#137C67}
+.project-modal-content .impact{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0;border-block:1px solid #DCE3DE;padding:18px 0}
+.project-modal-content .impact .fig{color:#137C67;font-weight:700}
+.project-modal-content .impact .lab{color:#5F716C;font-size:13px}
+.project-modal-content .tags{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.project-modal-content .tags span{font:12px 'JetBrains Mono',monospace;color:#546A60;border:1px solid #CFE3D5;border-radius:99px;padding:8px 12px;background:#ffffff99}
+.project-modal-content .plinks{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 4px}
+.project-modal-content .plinks a{background:#1D6654;color:white;padding:12px 20px;border-radius:99px;font-weight:600;font-size:14px}
+.project-modal-content .plinks a:hover{background:#2E8067;text-decoration:none}
+.project-modal-nav{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #DCE3DE;padding:14px 44px;gap:12px;flex:none}
+.project-modal-nav button{height:46px;width:46px;border:1px solid #DCE3DE;background:transparent;border-radius:50%;color:#5F716C;font-size:24px;cursor:pointer}
+.project-modal-count{font:13px 'JetBrains Mono',monospace;color:#5F716C;display:flex;align-items:center;gap:12px}
+.project-modal-dots{display:flex;gap:6px}.project-modal-dots span{width:7px;height:7px;border-radius:99px;background:#CFE3D5}.project-modal-dots span.current{width:24px;background:#1D6654}
+body.project-modal-open{overflow:hidden}
+@media(max-width:600px){.project-modal{border-radius:19px}.project-modal-body{padding:55px 23px 25px}.project-modal-close{top:14px;right:15px}.project-modal-nav{padding:12px 20px}.project-modal-content .proj-summary{font-size:16px}}
+</style>
+<style>
+/* Match the existing cream-and-sage portfolio palette; show skills on card faces. */
+#projects .projects-grid .uniform-project .project-front-skills{
+  display:flex;flex-wrap:wrap;gap:7px;margin:13px 0 2px;
+  align-content:flex-start;
+}
+#projects .projects-grid .uniform-project .project-front-skills span{
+  display:inline-flex;align-items:center;padding:5px 9px;
+  background:#F1F6F1;border:1px solid #D2E2D6;border-radius:6px;
+  color:#2C6653;font:11px 'JetBrains Mono',monospace;
+  line-height:1.35;overflow-wrap:anywhere;
+}
+#projects .projects-grid .uniform-project .proj-content>.plinks{margin-top:auto;padding-top:16px}
+#projects .projects-grid .uniform-project .project-toggle{color:#172B27}
+#projects .projects-grid .uniform-project .project-toggle:hover{color:#246B58}
+</style>
+<style>
+/* Four project cards on top, three centered below on wide desktop. */
+@media (min-width: 1150px) {
+ #projects .projects-grid.all-seven {display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:18px;max-width:1120px;margin-inline:auto}
+ #projects .projects-grid.all-seven > .uniform-project {grid-column:span 2}
+ #projects .projects-grid.all-seven > .uniform-project:nth-child(5) {grid-column:2 / span 2}
+ #projects .projects-grid.all-seven > .uniform-project:nth-child(6) {grid-column:4 / span 2}
+ #projects .projects-grid.all-seven > .uniform-project:nth-child(7) {grid-column:6 / span 2}
+}
+.project-modal-content .project-explanation {margin-top:14px}
 </style></head>
 <body class="mode-da">
 <nav class="nav">
@@ -302,7 +378,7 @@ a{color:var(--amber)}
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </div>
-<a class="resume" download="" href="Reva_Pethe_Resume_DE.pdf">Download resume</a>
+<a class="resume" download="" href="/Reva_Pethe_Resume_DE.pdf">Download resume</a>
 </div>
 </nav>
 <header class="hero" id="top"><div class="wrap"><div class="new-hero"><div class="new-hero-main"><div class="availability"><span class="pulse"></span> OPEN TO FULL-TIME OPPORTUNITIES · ACROSS THE U.S.</div><p class="hero-eyebrow">HELLO, I'M</p><h1>Reva <span>Pethe.</span></h1><p class="hero-title">Data Engineer <span class="separator">/</span> Data Analyst</p><p class="hero-description">I build reliable data pipelines, intelligent analytics solutions, and experiences that turn complex information into clear decisions.</p><div class="hero-actions"><a class="btn" href="#projects">Explore my projects ↗</a><a class="btn ghost" href="mailto:pethe.r@northeastern.edu?subject=Portfolio%20Inquiry%20%E2%80%94%20Reva%20Pethe">Email Me ↗</a></div><div class="hero-social"><a href="https://www.linkedin.com/in/reva-pethe" rel="noopener" target="_blank">LinkedIn ↗</a><a href="https://github.com/revapethe" rel="noopener" target="_blank">GitHub ↗</a></div></div><aside class="hero-side"><div class="side-entry"><span class="side-label">EDUCATION</span><strong>Master of Science<br/>Information Systems</strong><small>Northeastern University · Boston<br/></small></div><div class="side-entry"><span class="side-label">OPEN TO ROLES</span><strong>Data Engineer<br/>Data Analyst<br/>Business Intelligence Analyst</strong><small>Full-time · United States · Open to relocation</small></div><div class="side-entry"><span class="side-label">EXPERIENCE</span><strong>MindShare · Symbiosis</strong><small>Python · SQL · AWS · Power BI · Databricks</small></div></aside></div><div class="hero-bottom"><span>SELECTED WORK · DATA ENGINEERING · ANALYTICS · AI</span><a href="#projects">DISCOVER PROJECTS ↓</a></div></div></header>
@@ -415,23 +491,21 @@ a{color:var(--amber)}
 <div class="head">
 <h2>Projects</h2>
 </div>
-<div class="project-tools"><div aria-label="Filter projects" class="filter-bar" role="group"><button aria-pressed="true" class="filter active" data-filter="all">All projects</button><button aria-pressed="false" class="filter" data-filter="engineering">Data engineering</button><button aria-pressed="false" class="filter" data-filter="analytics">Analytics &amp; BI</button><button aria-pressed="false" class="filter" data-filter="ai">AI &amp; ML</button></div><input aria-label="Search projects" id="project-search" placeholder="Search projects or technologies…" type="search"/></div><p aria-live="polite" class="project-count" id="project-count"></p>
-<div class="projects-grid"><article class="proj uniform-project" data-category="engineering ai"><div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#D8E9DF"></div><div class="proj-content"><div class="ptop"><h3>FoodFlow AI - Data Pipeline &amp; Analytics</h3><span class="ptype">Data Engineering</span></div><p class="proj-summary">An end-to-end food data engineering project designed to turn raw operational data into trustworthy, analysis-ready information.</p><p class="project-detail">Structured ingestion and transformation workflows with Python and SQL, designed analytics-oriented data models, and explored dbt and orchestration tooling for repeatable pipeline execution.</p><div class="impact"><div><div class="fig">Project focus</div><div class="lab">Demonstrates an architecture-first approach to scalable and maintainable data workflows.</div></div></div><div class="prow"><div class="tags mono"><span>Python</span><span>SQL</span><span>dbt</span><span>Airflow</span><span>Snowflake</span></div></div><div class="plinks"><a href="https://github.com/revapethe/foodflow-ai" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div></div></article><article class="proj uniform-project" data-category="engineering analytics ai">
+<div class="project-tools"><div aria-label="Filter projects" class="filter-bar" role="group"><button aria-pressed="true" class="filter active" data-filter="all">All projects</button><button aria-pressed="false" class="filter" data-filter="engineering">Data engineering</button><button aria-pressed="false" class="filter" data-filter="analytics">Analytics &amp; BI</button><button aria-pressed="false" class="filter" data-filter="ai">AI &amp; ML</button></div></div><p aria-live="polite" class="project-count" id="project-count"></p>
+<div class="projects-grid"><article class="proj uniform-project" data-category="engineering ai"><div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#D8E9DF"></div><div class="proj-content"><div class="ptop"><h3>FoodFlow AI - Data Pipeline &amp; Analytics</h3><span class="ptype">Data Engineering</span></div><p class="proj-summary">An end-to-end food data engineering project designed to turn raw operational data into trustworthy, analysis-ready information.</p><p class="project-detail">Structured ingestion and transformation workflows with Python and SQL, designed analytics-oriented data models, and explored dbt and orchestration tooling for repeatable pipeline execution.</p><ul class="project-explanation"><li>Designed a food-data pipeline structure to organize raw operational records into consistent, analysis-ready datasets.</li><li>Used Python and SQL transformation workflows to prepare data for downstream analytics and reporting.</li><li>Explored dbt-based modeling and Airflow orchestration patterns to make repeatable pipeline execution easier to maintain.</li></ul><div class="impact"><div><div class="fig">Project focus</div><div class="lab">Demonstrates an architecture-first approach to scalable and maintainable data workflows.</div></div></div><div class="prow"><div class="tags mono"><span>Python</span><span>SQL</span><span>dbt</span><span>Airflow</span><span>Snowflake</span></div></div><div class="plinks"><a href="https://github.com/revapethe/foodflow-ai" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div></div></article><article class="proj uniform-project" data-category="engineering analytics ai">
 <div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E8E4D7"></div>
 <div class="proj-content"><div class="ptop">
 <h3>AI-Powered Payroll Analytics</h3>
 <span class="ptype">Data Engineering &amp; AI</span>
 </div><p class="proj-summary">A cross-country payroll analytics platform that cleans and standardizes employee compensation data, models it for reporting, and lets stakeholders ask payroll questions in natural language. The workflow covers ingestion, transformation, database modeling, and self-service analysis.</p>
-
-
-<ul class="v-da">
+<ul class="v-da project-explanation">
 <li>Analyzed 50,000+ employee records across the USA and India in PostgreSQL, using window functions and CTEs to quantify salary trends, departmental pay gaps, and headcount distribution.</li>
 <li>Built a natural-language query layer that turned business questions into dynamic SQL, letting stakeholders self-serve compensation analysis without waiting on a data pull.</li>
-</ul>
+<li>Validated and standardized employee compensation fields across U.S. and India datasets to support consistent cross-country comparisons.</li></ul>
 <ul class="v-de">
 <li>Built a Python ETL pipeline loading 50,000+ employee records across the USA and India into PostgreSQL and Snowflake, standardizing salary, department, and location fields.</li>
 <li>Modeled payroll tables with dbt and added a natural-language layer converting business questions into dynamic SQL for self-service analysis.</li>
-</ul>
+<li>Validated and standardized employee compensation fields across U.S. and India datasets to support consistent cross-country comparisons.</li></ul>
 <div class="impact">
 <div><div class="fig">50K+</div><div class="lab">Employee records</div></div>
 <div><div class="fig">2</div><div class="lab">Countries reconciled</div></div>
@@ -439,7 +513,6 @@ a{color:var(--amber)}
 </div>
 <div class="prow">
 <div class="tags mono"><span>python</span><span>postgresql</span><span>etl</span><span class="v-de">dbt</span><span class="v-de">snowflake</span></div>
-
 </div>
 <div class="plinks">
 <a href="https://github.com/revapethe/finance_payroll_analytics" rel="noopener noreferrer" target="_blank">GitHub ↗</a>
@@ -451,16 +524,14 @@ a{color:var(--amber)}
 <h3>Predictive Modeling of Healthcare Cost</h3>
 <span class="ptype">Machine Learning</span>
 </div><p class="proj-summary">An end-to-end predictive analytics application that prepares healthcare data, validates features, compares Random Forest and XGBoost models, and presents cost predictions in an interactive Streamlit interface.</p>
-
-
-<ul class="v-da">
+<ul class="v-da project-explanation">
 <li>Analyzed healthcare records through cleaning, feature engineering, schema validation, and preprocessing to find the patterns that actually move cost.</li>
 <li>Built an interactive Streamlit application around XGBoost and Random Forest models so the results could be explored rather than read off a slide.</li>
-</ul>
+<li>Compared Random Forest and XGBoost approaches to investigate which patient and policy features influence predicted costs.</li></ul>
 <ul class="v-de">
 <li>Built a Python preprocessing pipeline over healthcare records covering cleaning, schema validation, and feature engineering to produce reproducible model-ready datasets.</li>
 <li>Developed a Streamlit application serving XGBoost and Random Forest models, with Git version control and CI/CD automating testing and deployment.</li>
-</ul>
+<li>Compared Random Forest and XGBoost approaches to investigate which patient and policy features influence predicted costs.</li></ul>
 <div class="impact">
 <div><div class="fig">2</div><div class="lab">Models compared</div></div>
 <div><div class="fig">CI/CD</div><div class="lab">Automated deployment</div></div>
@@ -468,18 +539,15 @@ a{color:var(--amber)}
 </div>
 <div class="prow">
 <div class="tags mono"><span>python</span><span>scikit-learn</span><span>xgboost</span><span>pandas</span><span>ci/cd</span></div>
-
 </div>
 <div class="plinks">
 <a href="https://github.com/revapethe/healthcare_cost_prediction" rel="noopener noreferrer" target="_blank">GitHub ↗</a>
 <a href="https://healthcare-cost-prediction-project.streamlit.app/" rel="noopener noreferrer" target="_blank">Live demo ↗</a>
 </div></div>
-</article><article class="proj uniform-project" data-category="analytics">
+</article><article class="proj uniform-project" data-category="ai analytics"><div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#DDEBE7"></div><div class="proj-content"><div class="ptop"><h3>Supply Chain Collapse Predictor</h3><span class="ptype">Machine Learning</span></div><p class="proj-summary">An AI-powered early warning application that estimates supply chain disruption risk using shipment delays, inventory levels, supplier reliability, and other operational signals.</p><p class="project-detail">Built a reproducible modeling workflow using 730 days of synthetic logistics data, temporal features, calibrated classification, and drift detection. Interactive Streamlit dashboards let users explore risk, test scenarios, and inspect model diagnostics.</p><ul class="project-explanation"><li>Prepared a 730-day synthetic logistics dataset and engineered time-based indicators for disruption-risk modeling.</li><li>Built a classification workflow to estimate supply chain collapse risk from shipment, inventory, and supplier signals.</li><li>Incorporated model calibration and drift-detection concepts and presented risk insights in an interactive Streamlit application.</li></ul><div class="impact"><div><div class="fig">730 days</div><div class="lab">Synthetic supply chain records</div></div><div><div class="fig">3 models</div><div class="lab">Compared with calibration and drift checks</div></div></div><div class="prow"><div class="tags mono"><span>Python</span><span>Scikit-learn</span><span>SMOTE</span><span>Pandas</span><span>Plotly</span><span>Streamlit</span></div></div><div class="plinks"><a href="https://github.com/revapethe/supplychain_collapse_predictor" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="https://adsfinalproject.streamlit.app/" rel="noopener noreferrer" target="_blank">Live demo ↗</a></div></div></article><article class="proj uniform-project" data-category="analytics">
 <div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E3EDF3"></div>
 <div class="proj-content"><div class="ptop"><h3>Sports Performance BI Analytics</h3><span class="ptype">Analytics &amp; BI</span></div><p class="proj-summary">An interactive sports intelligence dashboard designed to turn cricket performance data into actionable insights. The report uses Power BI visuals, filters, and performance measures to explore player and team trends and compare results across matches.</p>
-
-
-<ul><li>Designed an interactive reporting experience for exploring cricket statistics and identifying performance patterns.</li><li>Used Power BI data modeling, DAX measures, and visual storytelling to make sports data easier to interpret.</li></ul>
+<ul class="project-explanation"><li>Designed an interactive reporting experience for exploring cricket statistics and identifying performance patterns.</li><li>Used Power BI data modeling, DAX measures, and visual storytelling to make sports data easier to interpret.</li><li>Added interactive filters and performance measures so users can compare player and team trends across matches.</li></ul>
 <div class="prow"><div class="tags mono"><span>power-bi</span><span>dax</span><span>sports-analytics</span><span>data-visualization</span></div></div>
 <div class="plinks"><a href="https://github.com/revapethe/cricIQ_BI_analysis" rel="noopener noreferrer" target="_blank" title="Browse GitHub profile to find the sports repository">GitHub ↗</a></div></div></article><article class="proj uniform-project" data-category="ai analytics">
 <div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#F2E2DD"></div>
@@ -487,16 +555,14 @@ a{color:var(--amber)}
 <h3>US Masters Admission Prediction</h3>
 <span class="ptype">Machine Learning</span>
 </div><p class="proj-summary">A data science project that prepares applicant records with SQL and Python, uses predictive modeling to study admission outcomes, and communicates patterns through Power BI dashboards.</p>
-
-
-<ul class="v-da">
+<ul class="v-da project-explanation">
 <li>Analyzed applicant profiles from across the US in MySQL and Python, using SQL-based feature engineering to isolate the factors that actually predict admission outcomes.</li>
 <li>Built automated Pandas cleaning and validation workflows and Power BI dashboards to communicate the findings to a non-technical audience.</li>
-</ul>
+<li>Applied Random Forest modeling to explore relationships between applicant characteristics and admission outcomes.</li></ul>
 <ul class="v-de">
 <li>Ingested and transformed applicant profiles from across the US in MySQL and Python, applying SQL-based feature engineering to build a clean modeling dataset.</li>
 <li>Built automated Pandas cleaning and validation workflows and loaded curated results into Power BI dashboards for admission trend reporting.</li>
-</ul>
+<li>Applied Random Forest modeling to explore relationships between applicant characteristics and admission outcomes.</li></ul>
 <div class="impact">
 <div><div class="fig">Published</div><div class="lab">METSZET Journal, Nov 2025</div></div>
 <div><div class="fig">Random Forest</div><div class="lab">Model used</div></div>
@@ -505,7 +571,7 @@ a{color:var(--amber)}
 <div class="tags mono"><span>mysql</span><span>python</span><span>random-forest</span><span>power-bi</span><span>excel</span></div>
 </div>
 <div class="plinks"></div></div>
-</article><article class="proj uniform-project" data-category="ai analytics"><div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E2ECE8"></div><div class="proj-content"><div class="ptop"><h3>IMDb Movie Rating Prediction</h3><span class="ptype">Machine Learning</span></div><p class="proj-summary">A machine learning system exploring what drives movie ratings across genres, directors, runtimes, and audience patterns.</p><p class="project-detail">Prepared a large movie dataset, explored rating distributions and genre trends, compared regression models including Random Forest and XGBoost, and used clustering with PCA to discover patterns. Presented findings through interactive visual analysis.</p><div class="impact"><div><div class="fig">Project focus</div><div class="lab">Explore the modeling and visualization process; compare patterns across movie attributes.</div></div></div><div class="prow"><div class="tags mono"><span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>XGBoost</span><span>K-Means</span><span>PCA</span></div></div><div class="plinks"><a href="https://github.com/revapethe" rel="noopener noreferrer" target="_blank">GitHub profile ↗</a></div></div></article></div>
+</article><article class="proj uniform-project" data-category="ai analytics"><div aria-hidden="true" class="proj-cover project-color-square" style="background-color:#E2ECE8"></div><div class="proj-content"><div class="ptop"><h3>IMDb Movie Rating Prediction</h3><span class="ptype">Machine Learning</span></div><p class="proj-summary">A machine learning system exploring what drives movie ratings across genres, directors, runtimes, and audience patterns.</p><p class="project-detail">Prepared a large movie dataset, explored rating distributions and genre trends, compared regression models including Random Forest and XGBoost, and used clustering with PCA to discover patterns. Presented findings through interactive visual analysis.</p><ul class="project-explanation"><li>Cleaned and explored movie attributes, including genre, runtime, and director information, to study rating patterns.</li><li>Compared regression models, including Random Forest and XGBoost, for movie-rating prediction.</li><li>Used K-Means clustering and PCA to explore similarities among movies and visualize patterns in the data.</li></ul><div class="impact"><div><div class="fig">Project focus</div><div class="lab">Explore the modeling and visualization process; compare patterns across movie attributes.</div></div></div><div class="prow"><div class="tags mono"><span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>XGBoost</span><span>K-Means</span><span>PCA</span></div></div><div class="plinks"><a href="https://github.com/revapethe" rel="noopener noreferrer" target="_blank">GitHub profile ↗</a></div></div></article></div>
 </div>
 </section>
 <section id="credentials">
@@ -540,7 +606,7 @@ a{color:var(--amber)}
 <a href="tel:+18573000698"><span class="t">Phone</span>857-300-0698</a>
 <a href="https://www.linkedin.com/in/reva-pethe"><span class="t">LinkedIn</span>in/reva-pethe</a>
 <a href="https://github.com/revapethe" rel="noopener noreferrer" target="_blank"><span class="t">GitHub</span>github.com/revapethe</a>
-<a href="Reva_Pethe_Resume_DE.pdf"><span class="t">Resume</span>Resume</a>
+<a href="/Reva_Pethe_Resume_DE.pdf"><span class="t">Resume</span>Resume</a>
 <span class="row"><span class="t">Location</span>United States · Open to relocation</span>
 </div>
 </div>
@@ -553,21 +619,103 @@ a{color:var(--amber)}
 <span style="margin-left:auto"><a href="#top">Back to top</a></span>
 </div>
 </footer>
+<dialog aria-labelledby="project-modal-title" class="project-modal" id="project-modal">
+<div class="project-modal-inner">
+<button aria-label="Close project details" class="project-modal-close" type="button">×</button>
+<div class="project-modal-body">
+<div class="project-modal-kicker" id="project-modal-kicker"></div>
+<h2 class="project-modal-title" id="project-modal-title"></h2>
+<div class="project-modal-content" id="project-modal-content"></div>
+</div>
+<div class="project-modal-nav">
+<button aria-label="Previous project" id="project-prev" type="button">‹</button>
+<div class="project-modal-count"><span class="project-modal-dots" id="project-modal-dots"></span><span id="project-modal-counter"></span></div>
+<button aria-label="Next project" id="project-next" type="button">›</button>
+</div>
+</div>
+</dialog>
 <script>
+
+  // Turn each project into a compact card; reveal descriptions and technologies on click.
+  document.querySelectorAll('#projects .uniform-project').forEach(function(card, i){
+    var content=card.querySelector('.proj-content');
+    var top=content.querySelector('.ptop');
+    var heading=top.querySelector('h3');
+    var links=content.querySelector('.plinks');
+    if(!heading || !links) return;
+    var title=heading.textContent.trim();
+    var toggle=document.createElement('button');
+    toggle.type='button';toggle.className='project-toggle';
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-controls','project-details-'+i);
+    var titleText=document.createElement('span');titleText.textContent=title;
+    var chevron=document.createElement('span');chevron.className='chevron';chevron.setAttribute('aria-hidden','true');chevron.textContent='↗';
+    toggle.append(titleText,chevron);
+    heading.replaceWith(toggle);
+    var expanded=document.createElement('div');
+    expanded.className='project-expanded';expanded.id='project-details-'+i;expanded.hidden=true;
+    var category=top.querySelector('.ptype');
+    if(category) expanded.appendChild(category);
+    Array.from(content.children).forEach(function(el){if(el!==top && el!==links)expanded.appendChild(el)});
+    content.insertBefore(expanded,links);
+    // Show the technology stack on the card while keeping full details in the modal.
+    var stack=expanded.querySelector('.tags');
+    if(stack){
+      var frontStack=stack.cloneNode(true);
+      frontStack.classList.add('project-front-skills');
+      content.insertBefore(frontStack,links);
+    }
+    toggle.addEventListener('click',function(e){e.stopPropagation();openProject(card)});
+    card.addEventListener('click',function(e){if(e.target.closest('a'))return;openProject(card)});
+  });
+
+
+  // Modal viewer with carousel navigation through the currently visible projects.
+  var projectModal=document.getElementById('project-modal');
+  var currentProjectIndex=0;
+  var projectTrigger=null;
+  function visibleProjectCards(){return Array.from(document.querySelectorAll('#projects .uniform-project')).filter(function(c){return !c.hidden});}
+  function renderProject(index){
+    var cards=visibleProjectCards();if(!cards.length)return;
+    currentProjectIndex=(index+cards.length)%cards.length;
+    var card=cards[currentProjectIndex];
+    document.getElementById('project-modal-title').textContent=card.querySelector('.project-toggle').firstChild.textContent;
+    var category=card.querySelector('.ptype');
+    document.getElementById('project-modal-kicker').textContent=(category?category.textContent:'Project')+' · Portfolio project';
+    var body=document.getElementById('project-modal-content');body.replaceChildren();
+    var details=card.querySelector('.project-expanded');
+    Array.from(details.children).forEach(function(el){if(!el.classList.contains('ptype'))body.appendChild(el.cloneNode(true));});
+    var links=card.querySelector('.plinks');if(links)body.appendChild(links.cloneNode(true));
+    document.getElementById('project-modal-counter').textContent=(currentProjectIndex+1)+' / '+cards.length;
+    var dots=document.getElementById('project-modal-dots');dots.replaceChildren();
+    cards.forEach(function(c,i){var dot=document.createElement('span');if(i===currentProjectIndex)dot.className='current';dots.appendChild(dot)});
+    projectModal.querySelector('.project-modal-body').scrollTop=0;
+  }
+  function openProject(card){
+    var cards=visibleProjectCards();var idx=cards.indexOf(card);if(idx<0)return;
+    projectTrigger=document.activeElement;
+    renderProject(idx);projectModal.showModal();document.body.classList.add('project-modal-open');
+  }
+  projectModal.querySelector('.project-modal-close').addEventListener('click',function(){projectModal.close()});
+  document.getElementById('project-prev').addEventListener('click',function(){renderProject(currentProjectIndex-1)});
+  document.getElementById('project-next').addEventListener('click',function(){renderProject(currentProjectIndex+1)});
+  projectModal.addEventListener('click',function(e){if(e.target===projectModal)projectModal.close()});
+  projectModal.addEventListener('close',function(){document.body.classList.remove('project-modal-open');if(projectTrigger&&projectTrigger.focus)projectTrigger.focus()});
+  projectModal.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();renderProject(currentProjectIndex-1)}else if(e.key==='ArrowRight'){e.preventDefault();renderProject(currentProjectIndex+1)}});
+
   // Project discovery: category and text search
   var activeFilter='all';
-  var projectSearch=document.getElementById('project-search');
   function updateProjects(){
-    var term=(projectSearch.value||'').toLowerCase().trim(),visible=0;
+    var visible=0;
     document.querySelectorAll('#projects article.proj').forEach(function(card){
       var matchesCategory=activeFilter==='all'||(card.dataset.category||'').split(' ').includes(activeFilter);
-      var matchesText=!term||card.textContent.toLowerCase().includes(term);
-      card.hidden=!(matchesCategory&&matchesText);if(!card.hidden)visible++;
+      card.hidden=!matchesCategory;if(!card.hidden)visible++;
     });
+    document.querySelector('#projects .projects-grid').classList.toggle('all-seven',visible===7);
     document.getElementById('project-count').textContent=visible+' project'+(visible===1?'':'s')+' shown';
   }
   document.querySelectorAll('.filter').forEach(function(btn){btn.addEventListener('click',function(){activeFilter=btn.dataset.filter;document.querySelectorAll('.filter').forEach(function(b){b.classList.toggle('active',b===btn);b.setAttribute('aria-pressed',String(b===btn));});updateProjects();});});
-  projectSearch.addEventListener('input',updateProjects);updateProjects();
+  updateProjects();
   // Role focus toggle
   function setMode(mode){
     document.body.classList.remove('mode-da','mode-de');
